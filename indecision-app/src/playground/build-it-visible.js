@@ -1,28 +1,36 @@
-console.log('Visibility app is running....');
-
-const appRoot = document.getElementById('app');
-
-const app = {
-    title: 'Visibilty app',
-    visible: false,
-    visibleMessage: 'This details are showing now',
-    inVisibleMessage: 'There are details you cant see'
-};
-
-const onShowDetails = ()=> {
-    app.visible = !app.visible;
-    render();
+class Visibility extends React.Component {
+    constructor(props) {
+        super(props)
+        this.toogleVisibility = this.toogleVisibility.bind(this)
+        this.state = {
+            visibility: false
+        }
+    }
+    toogleVisibility() {
+        this.setState((prevState) => {
+            return {
+                visibility: !prevState.visibility
+            }
+        })
+    }
+    render() {
+        return (
+            <div>
+                <h1>Visibility Toogle</h1>
+                <button onClick={this.toogleVisibility}>
+                    {this.state.visibility ? 'Hide details' : 'Show details'}
+                </button>
+                {
+                    this.state.visibility && (
+                        <div>
+                            <p>Hey. These are some details yo can now see!</p>
+                        </div>
+                    )
+                }
+            </div>
+        )
+    }
 }
 
-const render = () => {
-    const template = (
-        <div>
-            <h1>{app.title}</h1>
-            {app.visible ? <p>{app.visibleMessage}</p> : <p>{app.inVisibleMessage}</p>}
-            <button onClick={onShowDetails}>Show details</button>
-        </div>
-    );
-    ReactDOM.render(template, appRoot);
-}
+ReactDOM.render(<Visibility />, document.getElementById('app'))
 
-render();
