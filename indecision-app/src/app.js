@@ -17,7 +17,7 @@ class IndecisionApp extends React.Component {
                 this.setState(() => ({ options }))
             }
         } catch (err) {
-
+            // Do nothing
         }
 
     }
@@ -108,6 +108,9 @@ const Options = (props) => {
         <div>
             <button onClick={props.handleDeleteOptions}>Remove all</button>
             {
+                props.options.length == 0 && <p>No options available</p>
+            }
+            {
                 props.options.map((option) => (
                     <Option
                         key={option}
@@ -123,7 +126,7 @@ const Options = (props) => {
 const Option = (props) => {
     return (
         <div>
-            {props.optionText}
+            {props.optionText} 
             <button
                 onClick={() => {
                     props.handelDeleteOption(props.optionText)
